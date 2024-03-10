@@ -1,1 +1,45 @@
- {% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <link rel="stylesheet" href="{% static 'login.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Sign in</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text"  name="username" placeholder="Enter your username">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password">
+            </div>
+            <div class="form-group">
+                <button class="next-button" type="submit">Next</button>
+                <label for="remember-me">
+                    <input type="checkbox" id="remember-me" name="remember-me">
+                    Remember me
+                </label>
+            </div>
+            <a href="/password_reset">Forgot password</a>
+        </form>
+        <a class="create"  href="/signup">Create account</a>
+        <div class="language-switcher">
+            <select name="language">
+                <option value="en">English (United Kingdom)</option>
+                </select>
+        </div>
+        <ul class="links">
+            <li><a href="#">Help</a></li>
+            <li><a href="#">Privacy</a></li>
+            <li><a href="#">Terms</a></li>
+        </ul>
+    </div>
+</body>
+</html>

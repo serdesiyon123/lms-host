@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'manage_books',
     'crispy_forms',
     'crispy_bootstrap5',
+    'widget_tweaks',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
@@ -82,9 +83,9 @@ WSGI_APPLICATION = 'main.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'lms-project',
-        'USER': 'your-postgres-db-username',
-        'PASSWORD': 'your-password',
+        'NAME': 'lms_project',
+        'USER': 'postgres',
+        'PASSWORD': 'S3rv3post',
         'HOST': 'localhost',
         'PORT': '5432'
     }
@@ -128,9 +129,12 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'templates', 'static')]
 
-MEDIA_ROOT = os.path.join(BASE_DIR,'')
-MEDIA_URL = '/templates/'
+MEDIA_ROOT = os.path.join(BASE_DIR, )
+MEDIA_URL = '/images/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = '/home'
+LOGOUT_REDIRECT_URL = '/login'

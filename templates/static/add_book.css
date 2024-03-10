@@ -1,0 +1,44 @@
+.container {
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    padding: 20px;
+    width: 50%;
+    margin: auto;
+}
+
+.container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.container label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: bold;
+}
+
+.container input[type="text"], .container select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.container button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: linear-gradient(to right, #007bff, #33ccff);
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.container button:hover {
+    background: linear-gradient(to right, #33ccff, #007bff);
+}

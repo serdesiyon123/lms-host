@@ -1,0 +1,37 @@
+{% extends 'ui/home.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'add_books.css' %}">
+{% load widget_tweaks %}
+{% block title %}
+Admin Page
+{% endblock %}
+
+{% block content %}
+
+   <div class="container">
+        <div class="form-group">
+            <h2>Add New Book</h2>
+            <form id="add-item" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+             {{ form }}
+                <button class="add_book" type="submit">Add book</button>
+            </form>
+        </div>
+       {% if user.is_staff %}
+        <div class="form-group">
+            <h2>Promote/Ban</h2>
+            <form id="promote-ban" method="post">
+                {% csrf_token %}
+                <label for="selection">Select Item:</label>
+                <select id="selection" name="selection" required>
+                    <option value="">-- Select --</option>
+                    </select>
+                <label for="admin">Admin Password:</label>
+                <input type="password" id="admin" name="admin" required>
+                <button type="submit">Promote</button>
+                <button type="button" >Ban</button>
+            </form>
+        </div>
+   {% endif %}
+    </div>
+{% endblock %}
