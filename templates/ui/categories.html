@@ -1,0 +1,31 @@
+{% extends 'ui/home.html'%}
+{% block content %}
+
+      <h2>Nook Search</h2>
+{#                <p>Find your next literary adventure here.</p>#}
+                <form action="{% url "search" %}" method="get">
+                    {% csrf_token %}
+                    <input type="text" name="search" placeholder="Search books..." id="searchBar" >
+                    <button type="submit" class="searach-btn" > Search </button>
+                </form>
+            </section>
+            <section class="featured-books">
+                <div class="book-grid">
+                    {% for book in books %}
+                        <div class="book-item">
+                            <img src="{{ book.poster.url }}" alt="Book Cover 1">
+                            <h3>{{ book.name }}</h3>
+                            <p>{{ book.author }}</p>
+                            <p>{{ book.genre }}</p><form method="post"> {% csrf_token %}
+                            <button style="margin: 0 5px 10px 5px">Borrow</button>
+                            {% if user.is_staff or perms.manage_books.add_books %}
+                                <button style="margin: 0 5px 10px 5px; color: #45A049" type="submit" ><a style="text-decoration: none; color: #45A049" href="{% url 'update_books' book.id %}">Update</a></button>
+                                <button style="color: orangered; margin: 0 5px 10px 5px" type="submit" name="delete" value="{{ book.id }}">Delete</button>{% endif %}</form>
+                        </div>
+                    {% endfor %}
+
+
+                </div>
+            </section>
+
+{% endblock %}

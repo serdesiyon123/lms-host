@@ -5,4 +5,4 @@ class BooksRegister(ModelForm):
 
     class Meta:
         model = Books
-        fields = '__all__'
+        fields = ['name','author', 'genre', 'poster']

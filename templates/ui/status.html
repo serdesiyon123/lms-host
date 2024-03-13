@@ -1,0 +1,31 @@
+{% extends 'ui/home.html' %}
+
+
+
+{% block content %}
+
+
+
+    <section class="banner">
+        <h2>Nook Status</h2>
+
+    </section>
+    <section class="featured-books">
+        <div class="book-grid">
+            {% for borrow in borrowed %}
+                <div class="book-item">
+                    <img src="{{ borrow.book.poster.url }}" alt="Book Cover 1">
+                    <h3>{{ borrow.book.name }}</h3>
+                    <p>{{ borrow.book.author }}</p>
+                    <p>{{ borrow.book.genre }}</p>
+                    <p>Borrowed on: {{ borrow.borrow_date }}</p>
+                    <p>Due on: {{ borrow.return_date }}</p>
+                <form method="post" > {% csrf_token %}<button type="submit"><p>Return</p></button> </form>
+                </div>
+            {% endfor %}
+
+
+        </div>
+    </section>
+
+{% endblock %}

@@ -3,6 +3,15 @@ body {
     margin: 0;
     padding: 0;
     background-color: #e8f0f2;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+footer {
+    margin-top: auto;
+    background-color: #d3e0e6;
+    color: #d3e0e6;
 }
 
 header {
@@ -171,7 +180,7 @@ footer p {
     outline: none;
 }
 
-form input[type="submit"] {
+.searach-btn {
     padding: 10px 20px;
     border: none;
     border-radius: 15px;
@@ -188,3 +197,14 @@ form input[type="submit"] {
     color: #fff;
     cursor: pointer;
 }
+
+
+.dropdown-hover:hover .dropdown-menu {
+    background-color: #e8f0f2;
+    display: flex;
+    flex-direction: column;
+    border: none;
+    border-radius: 15px;
+
+}
+

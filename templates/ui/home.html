@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,75 +7,112 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"
-            defer ></script>
+            defer></script>
     <link rel="stylesheet" href="{% static 'home.css' %}">
+    <link rel="stylesheet" href="{% static 'add_book.css' %}">
+    <link rel="stylesheet" href="{% static 'admin.css' %}">
     <title>{% block title %} Home {% endblock %}</title>
 </head>
 <body>
-    <header>
+<header>
+    <form method="get"> {% csrf_token %}
         <nav>
             <ul>
                 <li><a href="/home">Home</a></li>
-                <li><a href="#">Books</a></li>
-                <li><a href="#">Categories</a></li>
+                <li class="nav-item dropdown dropdown-hover">
+                    <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Categories
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/categories/selfdev" id="selfdev">Self Development</a></li>
+                        <li><a class="dropdown-item" href="/categories/fantasy" id="fantasy">Fantasy</a></li>
+                        <li><a class="dropdown-item" href="/categories/software" id="softdev">Software Dev</a></li>
+
+                    </ul>
+                </li>
                 <li><a href="#">Authors</a></li>
-                <li><a href="#">Status</a></li>
-                <li><a href="/add">Admin</a></li>
+                <li><a href="/status">Status</a></li>
+                {% if user.is_staff or perms.manage_books.add_books %}
+                    <li><a href="/add">Add</a></li>{% endif %}
                 {% if user.is_authenticated %}
-                <li><a href="/logout">Logout</a></li>
-                <li><a href="#">{{ user.username }}</a></li>
+                    {% if user.is_staff %}
+                        <li><a href="/admin-page">Admin</a></li>{% endif %}
+                    <li><a href="/logout">Logout</a></li>
+                    <li><a href="#">{{ user.username }}</a></li>
                 {% else %}
-                <li><a href="#">Login</a></li>
-                <li><a href="#">Register</a></li>
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/signup">Register</a></li>
 
                 {% endif %}
             </ul>
         </nav>
-    </header>
+    </form>
+</header>
 
-    <main>
-        <div class="container">
-{% block content %}
+<main>
+    <div class="container">
+        {% block content %}
 
             <section class="banner">
                 <h2>Welcome to The Book Nook!</h2>
                 <p>Find your next literary adventure here.</p>
-                <form action="/search" method="get">
-    <input type="text" name="q" placeholder="Search books..." id="searchBar">
-    <input type="submit" value="Search">
-</form>
+                <form action="{% url "search" %}" method="get">
+                    {% csrf_token %}
+                    <input type="text" name="search" placeholder="Search books..." id="searchBar">
+                    <button type="submit" class="searach-btn"> Search</button>
+                </form>
             </section>
             <section class="featured-books">
                 <h2>Featured Books</h2>
                 <div class="book-grid">
-                        {% for book in books %}
-                    <div class="book-item">
-                        <img src="{{ book.poster.url }}" alt="Book Cover 1">
-                        <h3>{{ book.name }}</h3>
-                        <p>{{ book.author}}</p>
-                        <p>{{ book.genre}}</p>
-                    </div>
-                        {% endfor %}
+                    {% for book in books %}
+                        <div class="book-item">
+                            <img src="{{ book.poster.url }}" alt="Book Cover 1">
+                            <h3>{{ book.name }}</h3>
+                            <p>{{ book.author }}</p>
+                            <p>{{ book.genre }}</p>
+                            <form method="get"> {% csrf_token %}
+                                {% if book.id in borrowed_books %}
+                                    <button>Taken</button>
+                                {% else %}       {% if user.is_authenticated %}
+                                    <button style="margin: 0 5px 10px 5px" name="book_id" value="{{ book.id }}"><a
+                                            style="text-decoration: none; color: #2b2b2b" id="book_id"
+                                            {% if user.is_staff or perms.manage_books.add_books %}
+                                            href="{% url 'borrow' book.id %}">Borrow</a></button>{% endif %} {% endif %}
+                                    <button style="margin: 0 5px 10px 5px; color: #45A049" type="submit" name="id"
+                                            value="{{ book.id }}"><a style="text-decoration: none; color: #45A049"
+                                                                     id="id"
+                                                                     href="{% url 'update_books' book.id %}">Update</a>
+                                    </button> </form>
+                                    <form method="post">{% csrf_token %}
+                                        <button style="color: orangered; margin: 0 5px 10px 5px" type="submit"
+                                                name="delete" value="{{ book.id }}">Delete
+                                        </button>
+                                    </form>
+                                    </div>
+                                {% endif %}
+                    {% endfor %}
 
 
                 </div>
             </section>
-{#            <section class="categories">#}
-{#                <h2>Browse by Category</h2>#}
-{#                <ul>#}
-{#                    <li><a href="#">Fiction</a></li>#}
-{#                    <li><a href="#">Non-Fiction</a></li>#}
-{#                    <li><a href="#">Mystery</a></li>#}
-{#                    <li><a href="#">Romance</a></li>#}
-{#                    <li><a href="#">Science Fiction</a></li>#}
-{#                </ul>#}
-{#            </section>#}
-            {% endblock %}
-        </div>
-    </main>
+            {#            <section class="categories">#}
+            {#                <h2>Browse by Category</h2>#}
+            {#                <ul>#}
+            {#                    <li><a href="#">Fiction</a></li>#}
+            {#                    <li><a href="#">Non-Fiction</a></li>#}
+            {#                    <li><a href="#">Mystery</a></li>#}
+            {#                    <li><a href="#">Romance</a></li>#}
+            {#                    <li><a href="#">Science Fiction</a></li>#}
+            {#                </ul>#}
+            {#            </section>#}
+        {% endblock %}
+    </div>
+</main>
 
-    <footer>
-        <p>© 2024 My Bookstore</p>
-    </footer>
+<footer>
+    <p>© 2024 My Bookstore</p>
+</footer>
 </body>
 </html>

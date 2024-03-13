@@ -1,6 +1,6 @@
 {% extends 'ui/home.html' %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'add_books.css' %}">
+<link rel="stylesheet" href="{% static 'add_book.css' %}">
 {% load widget_tweaks %}
 {% block title %}
 Admin Page
@@ -8,30 +8,42 @@ Admin Page
 
 {% block content %}
 
-   <div class="container">
-        <div class="form-group">
-            <h2>Add New Book</h2>
-            <form id="add-item" method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-             {{ form }}
-                <button class="add_book" type="submit">Add book</button>
-            </form>
-        </div>
-       {% if user.is_staff %}
-        <div class="form-group">
-            <h2>Promote/Ban</h2>
-            <form id="promote-ban" method="post">
-                {% csrf_token %}
-                <label for="selection">Select Item:</label>
-                <select id="selection" name="selection" required>
-                    <option value="">-- Select --</option>
-                    </select>
-                <label for="admin">Admin Password:</label>
-                <input type="password" id="admin" name="admin" required>
-                <button type="submit">Promote</button>
-                <button type="button" >Ban</button>
-            </form>
-        </div>
-   {% endif %}
-    </div>
+    <style>
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 20px auto;
+            width: 400px;
+        }
+        .image-preview {
+            width: 150px;
+            height: 200px;
+            border: 1px solid #ddd;
+            overflow: hidden;
+        }
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+
+<body>
+    <form method="post" class="form-container" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2>Book Entry</h2>
+        {{ form.name| add_class:"form-field" | attr:"placeholder:Enter book name"}}
+        {{ form.author| add_class:"form-field" | attr:"placeholder:Enter  author"}}
+        {{ form.genre| add_class:"form-field" | attr:"placeholder:Enter genre"}}
+        <label>Poster</label>
+        {{ form.poster| add_class:"form-field"}}
+
+
+        <button type="submit">Submit</button>
+    </form>
+
+
+</body>
+
 {% endblock %}

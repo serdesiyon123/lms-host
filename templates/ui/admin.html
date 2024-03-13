@@ -1,0 +1,28 @@
+{% extends 'ui/home.html' %}
+{% block content %}
+
+
+        <div class="form-group form-container-right" >
+
+            <form action="{% url 'search-users' %}"   method="get" >
+                {% csrf_token %}
+                 <h1>User Management</h1>
+                <div class="search-bar-add">
+        <input type="text" id="search-input" placeholder="Search Users">
+        <button type="submit"   class="search-btn-add">Search</button>  </div>
+    <ul class="user-list">
+            {% for user in users %}
+        <li>
+            <span class="user-name">{{ user.username }}</span>
+            <button  type="submit" class="promote-btn" name="username" value="{{ user.username }}"  >Promote</button>
+            <span style="margin: 0 5px;"></span>  <button class="ban-btn" type="submit" name="user-id" value="{{ user.id }}">Ban</button>
+        </li>
+      {% endfor %}
+
+    </ul>
+            </form>
+        </div>
+
+
+
+{% endblock %}

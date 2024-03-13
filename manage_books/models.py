@@ -1,14 +1,11 @@
 from django.db import models
-
-
-class Status(models.Model):
-    # should have relationship with books
-    pass
-
+from django.contrib.auth.models import User
 
 class Rating(models.Model):
-    # should have relationship with books
-    pass
+    rating = models.PositiveIntegerField()
+
+
+
 
 
 class Books(models.Model):
@@ -22,3 +19,8 @@ class Books(models.Model):
 
 
 
+class Borrow(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    book = models.OneToOneField(Books, on_delete=models.CASCADE)
+    borrow_date = models.DateField(auto_now_add=True)
+    return_date = models.DateField(null=True, blank=True)

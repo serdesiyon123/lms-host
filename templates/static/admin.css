@@ -1,0 +1,127 @@
+
+footer {
+    margin-top: auto;
+    background-color: #e8f0f2;
+    color: #d3e0e6;
+    border-bottom: 1px solid #ccc;
+    padding: 3px;
+    text-align: center;
+    font-size: 15px;
+}
+.container_add h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+.container_add {
+    border-radius: 10px;
+    padding: 20px;
+    width: 50%;
+    margin: auto;
+}
+
+
+.container_add label {
+    width: 100%;
+    font-size: 13px;
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: bold;
+}
+
+.container_add input[type="text"], .container select {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.container_add button {
+    margin-left: 150px;
+    margin-top: 20px;
+    padding: 5px 10px;
+    border: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+
+}
+
+.container_add button:hover {
+    background: linear-gradient(to right, #33ccff, #007bff);
+}
+
+
+
+.search-bar-add {
+    display: flex;
+    justify-content: center;  width: 100%;  padding: 10px;
+    margin-top: 40px;
+    border-radius: 15px;
+
+}
+
+.search-bar-add input {
+
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    flex-grow: 1;
+    outline: none
+
+}
+
+.search-btn-add{
+  background-color: lightblue;  color: black;
+  padding: 5px 10px;
+  border: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+margin-left: 15px;
+
+}
+
+.user-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.user-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.user-name {
+    flex-grow: 1;
+}
+
+button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.promote-btn {
+    background-color: #008CBA;
+    color: white;
+}
+
+.ban-btn {
+    background-color: #F00;
+    color: white;
+}
+
+
+
+button:hover {
+    opacity: 0.8;
+}
+
+
+
