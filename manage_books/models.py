@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 class Rating(models.Model):
     rating = models.PositiveIntegerField()
+    review = models.TextField()
 
 
 
@@ -14,6 +15,7 @@ class Books(models.Model):
     author = models.CharField(max_length=255)
     genre = models.CharField(max_length=255)
     poster = models.ImageField(upload_to='templates/images')
+
     def __str__(self):
         return self.name
 
