@@ -90,14 +90,7 @@ def admin(request):
                 admin_group = Group.objects.get(name='admin')
                 student_group = Group.objects.get(name='student')
                 admin_group.user_set.add(user)
-                student_group.user_set.remove(user)
-            return redirect('/admin-page')
-
-
-def search_result(request):
-    if request.method == 'GET':
-        search = request.GET.get('search')
-        if search is not None:
+                student_group.user_setm
             books = Books.objects.filter(
                 Q(name__icontains=search) | Q(author__icontains=search) | Q(genre__icontains=search))
             return render(request, 'ui/search.html', {'books': books})
@@ -143,7 +136,7 @@ def borrow(request, book_id):
         return redirect('status')
 
 
-def description(request):
-    value = request.GET.get('value')
-    book = Books.objects.filter(id=value).first()
-    return render(request, 'ui/description.html', {'book':book})
+def description(request,id):
+    if request.method == 'GET':
+        book = Books.objects.get(pk=id)
+        return render(request, 'ui/description.html', {'book':book})

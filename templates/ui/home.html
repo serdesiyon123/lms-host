@@ -19,19 +19,22 @@
         <nav>
             <ul>
                 <li><a href="/home">Home</a></li>
-    
                 <li class="nav-item dropdown dropdown-hover">
                     <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">
                         Categories
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/categories/selfdev" id="selfdev">Self Development</a></li>
-                        <li><a class="dropdown-item" href="/categories/fantasy" id="fantasy">Fantasy</a></li>
-                        <li><a class="dropdown-item" href="/categories/software" id="softdev">Software Dev</a></li>
+                    <ul class="dropdown-menu">
+                        <a  href="/home?value=All"><li>All</li></a>
+                        <a href="/home?value=Fiction"><li>Fiction</li></a>
+                        <a href="/home?value=Non-Fiction"><li>Non-Fiction</li></a>
+                        <a href="/home?value=Mystery"><li>Mystery</li></a>
+                        <a href="/home?value=Romance"><li>Romance</li></a>
+                        <a href="/home?value=Science Fiction"><li>Science Fiction</li></a>
+                        <a href="/home?value=Historical Fiction"><li>Historical Fiction</li></a>
+                        <a href="/home?value=Children's Literature"><li>Children's Literature</li></a>
                     </ul>
-            
-                    <li></li>
+                </li>
                 <li><a href="#">Authors</a></li>
                 <li><a href="/status">Status</a></li>
                 {% if user.is_staff or perms.manage_books.add_books %}
@@ -47,16 +50,7 @@
 
                 {% endif %}
             </ul>
-            <div class="search-container">
-                <form action="{% url 'search' %}" method="get">
-                    {% csrf_token %}
-                    <input type="text" name="search" placeholder="Search books..." id="searchBar" style="width:500px">   </form>
-                <button type="submit" class="search-btn">Search</button>
-             
-            </div>
         </nav>
-        
-        
     </form>
 </header>
 
@@ -67,17 +61,21 @@
             <section class="banner">
                 <h2>Welcome to The Book Nook!</h2>
                 <p>Find your next literary adventure here.</p>
-                
+                <form action="{% url "search" %}" method="get">
+                    {% csrf_token %}
+                    <input type="text" name="search" placeholder="Search books..." id="searchBar">
+                    <button type="submit" class="searach-btn"> Search</button>
+                </form>
             </section>
             <section class="featured-books">
                 <h2>Featured Books</h2>
                 <div class="book-grid">
                     {% for book in books %}
-                        <div class="book-item">
+                        <div class="book-item"> <form method="get"  action="{%   url "description-each" book.id  %}"> <button name="id" value="{{ book.id }}">  <a style="text-decoration: none; color: #333333" href="/description">
                             <img src="{{ book.poster.url }}" alt="Book Cover 1">
                             <h3>{{ book.name }}</h3>
                             <p>{{ book.author }}</p>
-                            <p>{{ book.genre }}</p>
+                            <p>{{ book.genre }}</p></a> </button></form>
                             <form method="get"> {% csrf_token %}
                                 {% if book.id in borrowed_books %}
                                     <button>Taken</button>
@@ -96,7 +94,7 @@
                                                 name="delete" value="{{ book.id }}">Delete
                                         </button>
                                     </form>
-                                    </div>
+                        </div>
                                 {% endif %}
                     {% endfor %}
 
@@ -113,22 +111,12 @@
             {#                    <li><a href="#">Science Fiction</a></li>#}
             {#                </ul>#}
             {#            </section>#}
+<footer>
+    <p>© 2024 My Bookstore</p>
+</footer>
         {% endblock %}
     </div>
 </main>
 
-<footer>
-    {% comment %} <div class="language-switcher">
-        <select name="language">
-            <option value="en">English (United Kingdom)</option>
-            </select>
-    </div> {% endcomment %}
-    <ul class="links">
-        <li><a href="#">Help</a></li>
-        <li><a href="#">Privacy</a></li>
-        <li><a href="#">Terms</a></li>
-    </ul>
-    <p>© 2024 My Bookstore</p>
-</footer>
 </body>
 </html>
