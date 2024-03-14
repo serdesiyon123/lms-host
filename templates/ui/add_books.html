@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{% static 'add_book.css' %}">
 {% load widget_tweaks %}
 {% block title %}
-Admin Page
+Add
 {% endblock %}
 
 {% block content %}
@@ -38,6 +38,8 @@ Admin Page
         {{ form.genre| add_class:"form-field" | attr:"placeholder:Enter genre"}}
         <label>Poster</label>
         {{ form.poster| add_class:"form-field"}}
+        <label>Description</label>
+        {{ form.description| add_class:"form-field"}}
 
 
         <button type="submit">Submit</button>

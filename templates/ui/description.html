@@ -1,0 +1,211 @@
+{% extends 'ui/home.html' %}
+{% block title %}
+    description
+{% endblock %}
+{% block content %}
+    <style>
+
+
+        p.description-text {
+            display: flex;
+            align-content: space-around;
+            line-height: 1.6;
+            color: #333;
+            width: 500px;
+            height: 300px;
+        }
+
+        img.book-image {
+            margin-top: 15px;
+            width: 300px;
+            height: 500px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1.book-title {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            max-width: 800px;
+
+        }
+
+        .book-cover {
+            flex-basis: 40%;
+            padding: 20px;
+            margin-right: 20px;
+        }
+
+
+        .book-info {
+            flex-basis: 60%;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .author {
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+
+        .buy-button {
+            display: block;
+            background-color: #2196F3;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        .buy-button:hover {
+            background-color: #1771C6;
+        }
+
+        .rating {
+            display: block;
+            margin-right: 20px;
+            unicode-bidi: bidi-override;
+            direction: rtl;
+            width: 100%;
+            text-align: left;
+
+        }
+
+        .rating > span {
+            display: inline-block;
+            position: relative;
+            color: #09c;
+            font-size: 40px;
+            width: 40px;
+        }
+
+        .rating > span:hover:before,
+        .rating > span:hover ~ span:before {
+            content: "\2605";
+            position: absolute;
+            cursor: pointer;
+            color: #09c;
+            -webkit-animation: mymove 2s;
+            animation: mymove 2s;
+            animation-direction: normal;
+
+            transform: scale(1.2);
+        }
+
+        /* Chrome, Safari, Opera */
+        @-webkit-keyframes mymove {
+            from {
+                color: #94e8ff;
+            }
+            to {
+                color: #09c;
+            }
+        }
+
+        .reviews {
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+.reviews h2 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.review {
+    margin-bottom: 5px;
+    font-style: italic;
+}
+
+
+
+.top-review {
+    display: block;
+    margin: 0 auto;
+    padding: 20px;
+     font-family: sans-serif;
+width: 900px;
+    height: 200px;
+    margin-right: 230px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.review-header {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.user_review {
+    border: 1px solid #ddd;
+    padding: 20px;
+}
+
+p {
+    margin-bottom: 10px;
+}
+
+
+    </style>
+
+
+    <div class="container ">
+        <img src="{{ book.poster.url }}" alt="Book Cover" class="book-cover book-image">
+        <div class="book-info">
+            <h1 class="book-title">{{ book.name }}</h1>
+            <p class="author">By: {{ book.author }}</p>
+            <p class="description-text"> {{ book.description }}
+            </p>
+            {% if user.is_authenticated %}       <a href="#" class="buy-button">Borrow</a>
+
+                <div class="rating">
+                    <span title="five stars">&#9734;</span>
+                    <span title="four stars">&#9734;</span>
+                    <span title="three stars">&#9734;</span>
+                    <span title="two stars">&#9734;</span>
+                    <span title="one star">&#9734;</span>
+                </div> {% endif %}
+
+    </div>
+        </div>
+    </div>
+
+<div class="top-review">
+        <header>
+            <h1 class="review-header">Top Reviews</h1>
+        </header>
+        <div class="user_review">
+            <h5>A Review by Allison Adams</h5>
+            <p>I bought this book for my daughter and she absolutely loves it! Great for any preteen girl. The devotionals are easy to read and just a great book!</p>
+            <p><strong>Reviewed in the United States on March 2, 2024</strong></p>
+            <p><strong>Verified Purchase</strong></p>
+        </div>
+
+{% endblock %}
+

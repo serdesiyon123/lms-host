@@ -141,3 +141,8 @@ def borrow(request, book_id):
             return_date=timezone.now() + timedelta(weeks=2)
         )
         return redirect('status')
+
+
+def description(request):
+    book = Books.objects.get(pk=19)
+    return render(request, 'ui/description.html', {'book':book})

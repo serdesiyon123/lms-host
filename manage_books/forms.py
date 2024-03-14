@@ -5,4 +5,4 @@ class BooksRegister(ModelForm):
 
     class Meta:
         model = Books
-        fields = ['name','author', 'genre', 'poster']
+        fields = ['name','author', 'genre', 'poster','description']

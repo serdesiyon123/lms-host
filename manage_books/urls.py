@@ -13,7 +13,9 @@ urlpatterns = [
     path('categories/fantasy', views.categories, name='categories'),
     path('categories/selfdev', views.categories, name='categories'),
     path('status/', views.status, name='status'),
-    path('borrow/<int:book_id>', views.borrow, name='borrow')
+    path('borrow/<int:book_id>', views.borrow, name='borrow'),
+    path('description/', views.description, name='description'),
+    path('borrow/<int:id>', views.description, name='description-each'),
 
 
 

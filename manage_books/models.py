@@ -15,6 +15,7 @@ class Books(models.Model):
     author = models.CharField(max_length=255)
     genre = models.CharField(max_length=255)
     poster = models.ImageField(upload_to='templates/images')
+    description = models.TextField()
 
     def __str__(self):
         return self.name
