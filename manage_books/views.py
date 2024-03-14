@@ -90,7 +90,14 @@ def admin(request):
                 admin_group = Group.objects.get(name='admin')
                 student_group = Group.objects.get(name='student')
                 admin_group.user_set.add(user)
-                student_group.user_setm
+                student_group.user_set.remove(user)
+            return redirect('/admin-page')
+
+
+def search_result(request):
+    if request.method == 'GET':
+        search = request.GET.get('search')
+        if search is not None:
             books = Books.objects.filter(
                 Q(name__icontains=search) | Q(author__icontains=search) | Q(genre__icontains=search))
             return render(request, 'ui/search.html', {'books': books})
