@@ -21,15 +21,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-<<<<<<< HEAD
     path('', include('manage_books.urls')),
     path('', include('auth_users.urls')),
     path('', include('django.contrib.auth.urls'))
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-=======
-    path('', include('django.contrib.auth.urls')),
-]
-
-
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
->>>>>>> e1e3f8f5b550a1a7b8f483d844a399f0e6d4a6a9

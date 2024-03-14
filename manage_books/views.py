@@ -16,7 +16,14 @@ def homepage(request):
             book = Books.objects.get(id=delete)
             book.delete()
             return redirect('/home')
-    books = Books.objects.all()
+
+    '''filtering by Categories'''
+    value = request.GET.get('value')
+    if value and value != 'All':
+        books = Books.objects.filter(genre=value)
+    else:
+        books = Books.objects.all()
+
     borrowed_books = Borrow.objects.all()
     return render(request, 'ui/home.html', {'books': books, 'borrowed_books': borrowed_books})
 

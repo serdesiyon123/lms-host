@@ -19,16 +19,20 @@
         <nav>
             <ul>
                 <li><a href="/home">Home</a></li>
-                <li class="nav-item dropdown dropdown-hover">
+                <li class="drop">
                     <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">
                         Categories
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/categories/selfdev" id="selfdev">Self Development</a></li>
-                        <li><a class="dropdown-item" href="/categories/fantasy" id="fantasy">Fantasy</a></li>
-                        <li><a class="dropdown-item" href="/categories/software" id="softdev">Software Dev</a></li>
-
+                    <ul class="drop-down">
+                        <a href="/home?value=All"><li>All</li></a> 
+                        <a href="/home?value=Fiction"><li>Fiction</li></a>
+                        <a href="/home?value=Non-Fiction"><li>Non-Fiction</li></a>
+                        <a href="/home?value=Mystery"><li>Mystery</li></a>
+                        <a href="/home?value=Romance"><li>Romance</li></a>
+                        <a href="/home?value=Science Fiction"><li>Science Fiction</li></a>  
+                        <a href="/home?value=Historical Fiction"><li>Historical Fiction</li></a> 
+                        <a href="/home?value=Children's Literature"><li>Children's Literature</li></a>                       
                     </ul>
                 </li>
                 <li><a href="#">Authors</a></li>
