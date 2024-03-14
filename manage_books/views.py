@@ -144,5 +144,6 @@ def borrow(request, book_id):
 
 
 def description(request):
-    book = Books.objects.get(pk=19)
+    value = request.GET.get('value')
+    book = Books.objects.filter(id=value).first()
     return render(request, 'ui/description.html', {'book':book})

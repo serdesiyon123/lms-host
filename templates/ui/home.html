@@ -71,7 +71,7 @@
                 <h2>Featured Books</h2>
                 <div class="book-grid">
                     {% for book in books %}
-                        <div class="book-item"> <form method="get">   <a style="text-decoration: none; color: #333333" href="/description">
+                        <div class="book-item"> <form method="get">   <a style="text-decoration: none; color: #333333" href="/description?value={{ book.pk }}">
                             <img src="{{ book.poster.url }}" alt="Book Cover 1">
                             <h3>{{ book.name }}</h3>
                             <p>{{ book.author }}</p>
@@ -94,7 +94,7 @@
                                                 name="delete" value="{{ book.id }}">Delete
                                         </button>
                                     </form>
-                                    </div>
+                        </div>
                                 {% endif %}
                     {% endfor %}
 
