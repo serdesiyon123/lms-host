@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required, permission_required
 from .forms import BooksRegister
@@ -115,16 +116,22 @@ def search_users(request):
         return render(request, 'ui/search_users.html', {'users': users})
     return render(request, 'ui/search_users.html', )
 
-
+@login_required(login_url='/status')
 def status(request):
-    borrowed = Borrow.objects.all()
+    borrowed = Borrow.objects.filter(user=request.user)
     return render(request, 'ui/status.html', {'borrowed': borrowed})
 
 
 def borrow(request, book_id):
     if request.method == 'GET':
-        book = Books.objects.get(id=book_id)
+        max_limit = 3
 
+        count = Borrow.objects.filter(user=request.user).count()
+
+        if count >= max_limit:
+            messages.error(request,"You have reached max book limit \n please return some book to take more")
+            return redirect('/status')
+        book = Books.objects.get(id=book_id)
         Borrow.objects.create(
             id=book_id,
             book=book,
