@@ -190,7 +190,7 @@ p {
     .user_review h6 {
         font-size: 0.9em;
         color: #999;
-        margin-top: 30px;
+
 
     }
 
@@ -198,6 +198,9 @@ p {
         color: #2196F3;
     }
 .verified{
+    margin: 0;
+}
+.outof{
     margin: 0;
 }
 
@@ -249,11 +252,11 @@ p {
         {% if book.id == user_review.id %}
         <div class="user_review">
             <h5><i>A Review by {{ user_review.user }}</i> </h5>
-            <h4>
-
-            </h4>
-            <p >{{ user_review.review }}</p>
-            <h6> Reviewed in {{ user_review.review_date }}</h6>
+            <h4 >{{ user_review.review }}</h4>
+            <h6 class="outof">
+         I give it  {{ user_review.rating }} out of 5
+            </h6>
+            <p> Reviewed in {{ user_review.review_date }}</p>
             <p class="verified"><strong>Verified Review</strong></p>
         </div>
         {% endif %}

@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required, permission_required
 from .forms import BooksRegister, ReviewRegister
@@ -115,6 +114,7 @@ def search_users(request):
         users = Users.objects.filter(username__icontains=search_user)
         return render(request, 'ui/search_users.html', {'users': users})
     return render(request, 'ui/search_users.html', )
+
 
 @login_required(login_url='/status')
 def status(request):

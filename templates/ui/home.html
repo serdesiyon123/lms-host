@@ -17,28 +17,43 @@
 <header>
     <form method="get"> {% csrf_token %}
         <nav>
-            <ul>
-                <li><a href="/home">Home</a></li>
+            <ul >
+                <li><a href="/home" style="font-family: 'Lucida Handwriting'">NOOK</a></li>
                 <li class="nav-item dropdown dropdown-hover">
                     <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">
                         Categories
                     </a>
                     <ul class="dropdown-menu">
-                        <a  href="/home?value=All"><li>All</li></a>
-                        <a href="/home?value=Fiction"><li>Fiction</li></a>
-                        <a href="/home?value=Non-Fiction"><li>Non-Fiction</li></a>
-                        <a href="/home?value=Mystery"><li>Mystery</li></a>
-                        <a href="/home?value=Romance"><li>Romance</li></a>
-                        <a href="/home?value=Science Fiction"><li>Science Fiction</li></a>
-                        <a href="/home?value=Historical Fiction"><li>Historical Fiction</li></a>
-                        <a href="/home?value=Childrens Literature"><li>Childrens Literature</li></a>
+                        <a href="/home?value=All">
+                            <li>All</li>
+                        </a>
+                        <a href="/home?value=Fiction">
+                            <li>Fiction</li>
+                        </a>
+                        <a href="/home?value=Non-Fiction">
+                            <li>Non-Fiction</li>
+                        </a>
+                        <a href="/home?value=Mystery">
+                            <li>Mystery</li>
+                        </a>
+                        <a href="/home?value=Romance">
+                            <li>Romance</li>
+                        </a>
+                        <a href="/home?value=Science Fiction">
+                            <li>Science Fiction</li>
+                        </a>
+                        <a href="/home?value=Historical Fiction">
+                            <li>Historical Fiction</li>
+                        </a>
+                        <a href="/home?value=Childrens Literature">
+                            <li>Childrens Literature</li>
+                        </a>
                     </ul>
                 </li>
-                <li><a href="#">Authors</a></li>
                 <li><a href="/status">Status</a></li>
                 {% if user.is_staff or perms.manage_books.add_books %}
-                    <li><a href="/add">Add</a></li>{% endif %}
+                    <li><a href="/add">Add Books</a></li>{% endif %}
                 {% if user.is_authenticated %}
                     {% if user.is_staff %}
                         <li><a href="/admin-page">Admin</a></li>{% endif %}
@@ -71,22 +86,26 @@
                 <h2>Featured Books</h2>
                 <div class="book-grid">
                     {% for book in books %}
-                        <div class="book-item"> <form method="get"  action="{%   url "description-each" book.id  %}"> <button name="id" value="{{ book.id }}">  <a style="text-decoration: none; color: #333333" href="/description">
-                            <img src="{{ book.poster.url }}" alt="Book Cover 1">
-                            <h3>{{ book.name }}</h3>
-                            <p>{{ book.author }}</p>
-                            <p>{{ book.genre }}</p></a> </button></form>
+                        <div class="book-item">
+                            <form method="get" action="{% url "description-each" book.id %}">
+                                <button name="id" value="{{ book.id }}"><a style="text-decoration: none; color: #333333"
+                                                                           href="/description">
+                                    <img src="{{ book.poster.url }}" alt="Book Cover 1">
+                                    <h3>{{ book.name }}</h3>
+                                    <p>{{ book.author }}</p>
+                                    <p>{{ book.genre }}</p></a></button>
+                            </form>
                             <form method="post" style="display: flex; justify-content: space-around "> {% csrf_token %}
-                                    <button style="margin: 0 5px 10px 5px; color: #45A049" type="submit" name="id"
-                                            value="{{ book.id }}"><a style="text-decoration: none; color: #45A049"
-                                                                     id="id"
-                                                                     href="{% url 'update_books' book.id %}">Update</a>
-                                    </button>
+                                <button style="margin: 0 5px 10px 5px; color: #45A049" type="submit" name="id"
+                                        value="{{ book.id }}"><a style="text-decoration: none; color: #45A049"
+                                                                 id="id"
+                                                                 href="{% url 'update_books' book.id %}">Update</a>
+                                </button>
 
-                                        <button style="color: orangered; margin: 0 5px 10px 5px" type="submit"
-                                                name="delete" value="{{ book.id }}">Delete
-                                        </button>
-                                    </form>
+                                <button style="color: orangered; margin: 0 5px 10px 5px" type="submit"
+                                        name="delete" value="{{ book.id }}">Delete
+                                </button>
+                            </form>
                         </div>
 
                     {% endfor %}
@@ -94,20 +113,15 @@
 
                 </div>
             </section>
-            {#            <section class="categories">#}
-            {#                <h2>Browse by Category</h2>#}
-            {#                <ul>#}
-            {#                    <li><a href="#">Fiction</a></li>#}
-            {#                    <li><a href="#">Non-Fiction</a></li>#}
-            {#                    <li><a href="#">Mystery</a></li>#}
-            {#                    <li><a href="#">Romance</a></li>#}
-            {#                    <li><a href="#">Science Fiction</a></li>#}
-            {#                </ul>#}
-            {#            </section>#}
-<footer>
-    <p>© 2024 My Bookstore</p>
-</footer>
-        {% endblock %}
+           {% endblock %}
+            <footer>
+
+                 <a href="#">Help</a>
+  <a href="#">Contact Us</a>
+  <a href="#">Contributors</a>
+                <p>© 2024 My Bookstore</p>
+            </footer>
+
     </div>
 </main>
 
