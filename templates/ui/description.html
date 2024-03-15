@@ -11,13 +11,14 @@
             align-content: space-around;
             line-height: 1.6;
             color: #333;
-            width: 500px;
+            width: 450px;
             height: 300px;
+
         }
 
         img.book-image {
             margin-top: 15px;
-            width: 300px;
+            width: 350px;
             height: 500px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -75,7 +76,7 @@
             text-decoration: none;
             border: none;
             border-radius: 5px;
-            margin-top: 20px;
+            margin-top: 40px;
             cursor: pointer;
         }
 
@@ -173,7 +174,7 @@ p {
 
 
     </style>
-
+<form method="get"> {% csrf_token %}
 
     <div class="container ">
         <img src="{{ book.poster.url }}" alt="Book Cover" class="book-cover book-image">
@@ -182,8 +183,8 @@ p {
             <p class="author">By: {{ book.author }}</p>
             <p class="description-text"> {{ book.description }}
             </p>
-            {% if user.is_authenticated %}       <a href="#" class="buy-button">Borrow</a>
-
+            {% if user.is_authenticated %}    <button value="{{ book.id }}" name="book_id"></button>   <a href="{% url 'borrow' book.id %}" class="buy-button">Borrow</a>
+</form><form method="post"></form>
                 <div class="rating">
                     <span title="five stars">&#9734;</span>
                     <span title="four stars">&#9734;</span>
@@ -192,6 +193,7 @@ p {
                     <span title="one star">&#9734;</span>
                 </div> {% endif %}
 
+</form>
     </div>
         </div>
     </div>

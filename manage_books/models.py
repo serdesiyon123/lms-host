@@ -11,6 +11,7 @@ class Rating(models.Model):
 
 class Books(models.Model):
     # this should have attributes like Name, Author, Genre, Image etc
+
     name = models.CharField(max_length=255)
     author = models.CharField(max_length=255)
     genre = models.CharField(max_length=255)
@@ -21,9 +22,9 @@ class Books(models.Model):
         return self.name
 
 
-
 class Borrow(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     book = models.OneToOneField(Books, on_delete=models.CASCADE)
     borrow_date = models.DateField(auto_now_add=True)
     return_date = models.DateField(null=True, blank=True)
+

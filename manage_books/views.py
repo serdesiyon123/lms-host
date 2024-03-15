@@ -105,15 +105,6 @@ def search_result(request):
             return render(request, 'ui/home.html')
 
 
-def categories(request):
-    if request.method == 'GET':
-        self_dev = request.GET.get('selfdev')
-        fantasy = request.GET.get('fanstasy')
-        soft_dev = request.GET.get('softdev')
-        if self_dev:
-            books = Books.objects.filter(genre=self_dev)
-
-            pass
 
 
 def search_users(request):
@@ -135,6 +126,7 @@ def borrow(request, book_id):
         book = Books.objects.get(id=book_id)
 
         Borrow.objects.create(
+            id=book_id,
             book=book,
             user=request.user,
             borrow_date=timezone.now(),
@@ -142,6 +134,12 @@ def borrow(request, book_id):
         )
         return redirect('status')
 
+
+def return_book(request, book_id):
+    if request.method == 'GET':
+       book = Borrow.objects.get(pk=book_id)
+       book.delete()
+       return redirect('status')
 
 def description(request,id):
     if request.method == 'GET':

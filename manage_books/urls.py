@@ -9,11 +9,9 @@ urlpatterns = [
     path('admin-page/', views.admin, name='admin-page'),
     path('search/', views.search_result, name='search'),
     path('search-users/', views.search_users, name='search-users'),
-    path('categories/software', views.categories, name='categories'),
-    path('categories/fantasy', views.categories, name='categories'),
-    path('categories/selfdev', views.categories, name='categories'),
     path('status/', views.status, name='status'),
     path('borrow/<int:book_id>', views.borrow, name='borrow'),
+    path('return_book/<int:book_id>', views.return_book, name='return_books'),
     path('description/', views.description, name='description'),
     path('description/<int:id>', views.description, name='description-each'),
 

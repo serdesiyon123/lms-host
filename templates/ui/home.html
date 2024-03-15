@@ -79,11 +79,7 @@
                             <form method="get"> {% csrf_token %}
                                 {% if book.id in borrowed_books %}
                                     <button>Taken</button>
-                                {% else %}       {% if user.is_authenticated %}
-                                    <button style="margin: 0 5px 10px 5px" name="book_id" value="{{ book.id }}"><a
-                                            style="text-decoration: none; color: #2b2b2b" id="book_id"
-                                            {% if user.is_staff or perms.manage_books.add_books %}
-                                            href="{% url 'borrow' book.id %}">Borrow</a></button>{% endif %} {% endif %}
+                                {% else %}
                                     <button style="margin: 0 5px 10px 5px; color: #45A049" type="submit" name="id"
                                             value="{{ book.id }}"><a style="text-decoration: none; color: #45A049"
                                                                      id="id"

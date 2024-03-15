@@ -22,7 +22,7 @@ Status
                     <p>{{ borrow.book.genre }}</p>
                     <p>Borrowed on: {{ borrow.borrow_date }}</p>
                     <p>Due on: {{ borrow.return_date }}</p>
-                <form method="post" > {% csrf_token %}<button type="submit"><p>Return</p></button> </form>
+                <form method="get" action="{% url 'return_books' borrow.book.id %}" > {% csrf_token %}<button type="submit" name="book_id" value="{{ borrow.book.id }}">Return</button> </form>
                 </div>
             {% endfor %}
 
