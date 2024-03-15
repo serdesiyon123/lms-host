@@ -1,4 +1,5 @@
 {% extends 'ui/home.html' %}
+{% load widget_tweaks %}
 {% block title %}
     description
 {% endblock %}
@@ -12,13 +13,14 @@
             line-height: 1.6;
             color: #333;
             width: 450px;
-            height: 300px;
+            height: 330px;
+            scrollbar-gutter: auto;
 
         }
 
         img.book-image {
-            margin-top: 15px;
-            width: 350px;
+            margin-top: 55px;
+            width: 4000px;
             height: 500px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -94,26 +96,25 @@
 
         }
 
-        .rating > span {
-            display: inline-block;
-            position: relative;
-            color: #09c;
-            font-size: 40px;
-            width: 40px;
-        }
+       .rating > span {
+        display: inline-block;
+        position: relative;
+        color: orange; /* Change the color to orange */
+        font-size: 50px; /* Increase the font size */
+        width: 50px; /* Increase the width */
+    }
 
-        .rating > span:hover:before,
-        .rating > span:hover ~ span:before {
-            content: "\2605";
-            position: absolute;
-            cursor: pointer;
-            color: #09c;
-            -webkit-animation: mymove 2s;
-            animation: mymove 2s;
-            animation-direction: normal;
-
-            transform: scale(1.2);
-        }
+    .rating > span:hover:before,
+    .rating > span:hover ~ span:before {
+        content: "\2605";
+        position: absolute;
+        cursor: pointer;
+        color: orange; /* Change the hover color to orange */
+        -webkit-animation: mymove 2s;
+        animation: mymove 2s;
+        animation-direction: normal;
+        transform: scale(1.2);
+    }
 
         /* Chrome, Safari, Opera */
         @-webkit-keyframes mymove {
@@ -125,20 +126,10 @@
             }
         }
 
-        .reviews {
-    margin-top: 20px;
-    border-top: 1px solid #ddd;
-    padding-top: 10px;
-}
 
 .reviews h2 {
     font-size: 1.2em;
     margin-bottom: 10px;
-}
-
-.review {
-    margin-bottom: 5px;
-    font-style: italic;
 }
 
 
@@ -172,6 +163,43 @@ p {
     margin-bottom: 10px;
 }
 
+ .user_review {
+        border: 1px solid #ddd;
+        padding: 20px;
+        margin: 10px 0;
+        background-color: #f9f9f9;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        line-height: 1.6;
+        font-size: 1.1em;
+        letter-spacing: 0.05em;
+        word-spacing: 0.1em;
+        text-align: justify;
+    }
+
+    .user_review h5 {
+        font-size: 1.2em;
+        color: #333;
+        margin-bottom: 15px;
+        font-weight: 700;
+    }
+
+    .user_review p {
+        color: #666;
+    }
+
+    .user_review h6 {
+        font-size: 0.9em;
+        color: #999;
+        margin-top: 30px;
+
+    }
+
+    .user_review strong {
+        color: #2196F3;
+    }
+.verified{
+    margin: 0;
+}
 
     </style>
     {% if messages %}
@@ -190,17 +218,24 @@ p {
             <p class="author">By: {{ book.author }}</p>
             <p class="description-text"> {{ book.description }}
             </p>
-            {% if user.is_authenticated %}    <button value="{{ book.id }}" name="book_id"></button>   <a href="{% url 'borrow' book.id %}" class="buy-button">Borrow</a>
-</form><form method="post"></form>
-                <div class="rating">
-                    <span title="five stars">&#9734;</span>
-                    <span title="four stars">&#9734;</span>
-                    <span title="three stars">&#9734;</span>
-                    <span title="two stars">&#9734;</span>
-                    <span title="one star">&#9734;</span>
-                </div> {% endif %}
+         {% if user.is_authenticated  and book.id  not in taken %}       <a href="{% url 'borrow' book.id %}" class="buy-button">Borrow</a>{% endif %}
+</form>{% if user.is_authenticated and user_borrowed %}
+            <form method="post">{% csrf_token %}
+    <div class="rating">
+          {% for star in "12345" %}
+            <input type="radio" id="star{{forloop.counter}}" name="rating" value="{{forloop.counter}}" {% if forloop.counter == review.rating %} checked {% endif %}>
+            <label style="color: orange; width: 10px; height:12px; " for="star{{forloop.counter}}" title="{{forloop.counter}} stars">&#9733;</label>
+        {% endfor %}
 
+
+    </div>
+            <label style="display: block" >Write you reviews here please</label>
+                 {{ review.review }}
+            <button type="submit">Submit Review</button>
 </form>
+            {% endif %}
+
+
     </div>
         </div>
     </div>
@@ -209,12 +244,19 @@ p {
         <header>
             <h1 class="review-header">Top Reviews</h1>
         </header>
+
+    {% for user_review in user_reviews %}
+        {% if book.id == user_review.id %}
         <div class="user_review">
-            <h5>A Review by Allison Adams</h5>
-            <p>I bought this book for my daughter and she absolutely loves it! Great for any preteen girl. The devotionals are easy to read and just a great book!</p>
-            <p><strong>Reviewed in the United States on March 2, 2024</strong></p>
-            <p><strong>Verified Purchase</strong></p>
+            <h5><i>A Review by {{ user_review.user }}</i> </h5>
+            <h4>
+
+            </h4>
+            <p >{{ user_review.review }}</p>
+            <h6> Reviewed in {{ user_review.review_date }}</h6>
+            <p class="verified"><strong>Verified Review</strong></p>
         </div>
+        {% endif %}
+{% endfor %}
 
 {% endblock %}
-

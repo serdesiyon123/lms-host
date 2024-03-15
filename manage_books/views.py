@@ -1,8 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required, permission_required
-from .forms import BooksRegister
-from .models import Books, Borrow
+from .forms import BooksRegister, ReviewRegister
+from .models import Books, Borrow, Rating
 from django.contrib.auth.models import User, Group
 from django.db.models import Q
 from django.utils import timezone
@@ -139,7 +139,7 @@ def borrow(request, book_id):
             borrow_date=timezone.now(),
             return_date=timezone.now() + timedelta(weeks=2)
         )
-        return redirect('status')
+        return redirect('description-each', id=book_id)
 
 
 def return_book(request, book_id):
@@ -150,5 +150,22 @@ def return_book(request, book_id):
 
 def description(request,id):
     if request.method == 'GET':
+        review = ReviewRegister()
+        user_reviews = Rating.objects.all()
         book = Books.objects.get(pk=id)
-        return render(request, 'ui/description.html', {'book':book})
+        taken = Borrow.objects.all().values_list('book__id', flat=True)
+        user_borrowed = Borrow.objects.filter(user=request.user,book=book).exists()
+        return render(request, 'ui/description.html', {'book':book , 'taken': taken, 'user_borrowed':user_borrowed,'review': review, 'user_reviews': user_reviews})
+
+    elif request.method == 'POST':
+        review_form= ReviewRegister(request.POST)
+        book = Books.objects.get(pk=id)
+        if review_form.is_valid():
+            review = review_form.save(commit=False)
+            review.user = request.user
+            review.book = book
+            review.review_date = timezone.now()
+            review.id = id
+            review.save()
+        return redirect('description-each', id=id)
+

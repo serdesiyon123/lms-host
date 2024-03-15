@@ -32,7 +32,7 @@
                         <a href="/home?value=Romance"><li>Romance</li></a>
                         <a href="/home?value=Science Fiction"><li>Science Fiction</li></a>
                         <a href="/home?value=Historical Fiction"><li>Historical Fiction</li></a>
-                        <a href="/home?value=Children's Literature"><li>Children's Literature</li></a>
+                        <a href="/home?value=Childrens Literature"><li>Childrens Literature</li></a>
                     </ul>
                 </li>
                 <li><a href="#">Authors</a></li>
@@ -76,22 +76,19 @@
                             <h3>{{ book.name }}</h3>
                             <p>{{ book.author }}</p>
                             <p>{{ book.genre }}</p></a> </button></form>
-                            <form method="get"> {% csrf_token %}
-                                {% if book.id in borrowed_books %}
-                                    <button>Taken</button>
-                                {% else %}
+                            <form method="post" style="display: flex; justify-content: space-around "> {% csrf_token %}
                                     <button style="margin: 0 5px 10px 5px; color: #45A049" type="submit" name="id"
                                             value="{{ book.id }}"><a style="text-decoration: none; color: #45A049"
                                                                      id="id"
                                                                      href="{% url 'update_books' book.id %}">Update</a>
-                                    </button> </form>
-                                    <form method="post">{% csrf_token %}
+                                    </button>
+
                                         <button style="color: orangered; margin: 0 5px 10px 5px" type="submit"
                                                 name="delete" value="{{ book.id }}">Delete
                                         </button>
                                     </form>
                         </div>
-                                {% endif %}
+
                     {% endfor %}
 
 
