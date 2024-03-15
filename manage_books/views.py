@@ -1,12 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
-from .forms import BooksRegister, ReviewRegister
-from .models import Books, Borrow, Rating
 from django.contrib.auth.models import User, Group
+from django.contrib import messages
 from django.db.models import Q
 from django.utils import timezone
+from .forms import BooksRegister
+from .models import Books, Borrow,Rating
 from datetime import timedelta
-from django.contrib import messages
+
 
 
 def homepage(request):
@@ -26,6 +27,26 @@ def homepage(request):
 
     borrowed_books = Borrow.objects.all()
     return render(request, 'ui/home.html', {'books': books, 'borrowed_books': borrowed_books})
+
+
+# for book rating and review
+def rate_book(request, book_id):
+    if request.method == 'POST':
+        rating_value = int(request.POST.get('rating'))
+        review_text = request.POST.get('review', '')
+        book = get_object_or_404(Books, pk=book_id)
+        Rating.objects.create(book=book, user=request.user, rating=rating_value, review=review_text)
+        return redirect('book_detail', id=book_id)
+    
+    return redirect('/home')
+
+def book_detail(request, id):
+    book = get_object_or_404(Books, pk=id)
+    ratings = Rating.objects.filter(book=book)
+
+    return render(request, '____.html', {'book': book, 'ratings': ratings})
+
+#----------------------------------------------------------------
 
 
 @permission_required('manage_books.add_books', raise_exception=True)
