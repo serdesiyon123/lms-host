@@ -12,8 +12,6 @@ def sign_up(request):
             user = form.save()
             login(request,user)
             return redirect('/home')
-        else:
-            return render(request, 'registration/signup.html', {'form': form})
     elif request.method == 'GET':
         form = RegisterUsers()
 
