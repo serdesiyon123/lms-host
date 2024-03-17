@@ -9,7 +9,6 @@ urlpatterns = [
     path('promote/', views.admin, name='admin-page'),
     path('admins_edit/', views.admins_edit, name='admins-edit'),
     path('search/', views.search_result, name='search'),
-    path('search-users/', views.search_users, name='search-users'),
     path('status/', views.status, name='status'),
     path('borrow/<int:book_id>', views.borrow, name='borrow'),
     path('return_book/<int:book_id>', views.return_book, name='return_books'),

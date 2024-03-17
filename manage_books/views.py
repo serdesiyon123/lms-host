@@ -140,15 +140,7 @@ def search_result(request):
 
 
 
-
-def search_users(request):
-    if request.method == 'GET':
-        search_user = request.GET.get('search-user')
-        users = User.objects.filter(username__icontains=search_user)
-        return render(request, 'ui/admin.html', {'users': users})
-
-
-@login_required(login_url='/status')
+@login_required(login_url='/login')
 def status(request):
     borrowed = Borrow.objects.filter(user=request.user)
     return render(request, 'ui/status.html', {'borrowed': borrowed})
