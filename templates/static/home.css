@@ -9,21 +9,9 @@ body {
 }
 
 footer {
-    margin-top: 20px;
+    margin-top: auto;
+    background-color: #d3e0e6;
     color: #d3e0e6;
-  background-color: black;
-  padding: 10px;
-  text-align: center;
-}
-
-footer a {
-  color: #333;
-  text-decoration: none;
-  margin: 10px;
-}
-
-footer a:hover {
-  color: #000;
 }
 
 header {
@@ -51,7 +39,6 @@ nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
-
 }
 
 nav li {
@@ -63,8 +50,7 @@ nav li {
 nav li a {
     text-decoration: none;
     color: #333;
-    font-weight: lighter;
-    font-size: large;
+    font-weight: bold;
 }
 
 nav li a:hover {
@@ -255,4 +241,3 @@ footer p {
     border-radius: 15px;
 
 }
-

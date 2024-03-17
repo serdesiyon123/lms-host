@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 from django.shortcuts import render, redirect,get_object_or_404
+=======
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
+>>>>>>> parent of dd004e2 (last commit hopefully)
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User, Group
 from django.contrib import messages
@@ -133,7 +138,6 @@ def search_result(request):
 #         users = Users.objects.filter(username__icontains=search_user)
 #         return render(request, 'ui/search_users.html', {'users': users})
 #     return render(request, 'ui/search_users.html', )
-
 
 @login_required(login_url='/status')
 def status(request):

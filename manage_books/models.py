@@ -42,7 +42,6 @@ def update_average_rating(sender,instance,**kwargs):
         instance.averageRating = 0.0
     
     instance.save()
-
 models.signals.post_save.connect(update_average_rating, sender=Rating)
 
 
