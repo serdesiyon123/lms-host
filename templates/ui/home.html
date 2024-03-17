@@ -42,7 +42,7 @@
                 {% if user.is_authenticated %}
                     {% if user.is_staff %}
                         <li><a href="/promote">Promote</a></li>
-                        <li><a href="/admins_edit">Admins</a></li>{% endif %}
+                        <li><a href="/admins_edit">Demote</a></li>{% endif %}
                     <li><a href="/logout">Logout</a></li>
                     <li><a href="#">{{ user.username }}</a></li>
                 {% else %}

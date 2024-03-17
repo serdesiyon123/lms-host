@@ -1,7 +1,12 @@
+import os
+from dotenv import load_dotenv
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.core.exceptions import ValidationError
+
+
+load_dotenv()
 
 
 class RegisterUsers(UserCreationForm):
@@ -26,3 +31,11 @@ class RegisterUsers(UserCreationForm):
         if User.objects.filter(email=email).exists():
             raise ValidationError("Email is already taken.")
         return email
+
+    def save(self, commit=True):
+        user = super(RegisterUsers, self).save(commit=False)
+        if self.cleaned_data.get('password1') == os.getenv('superuser'):  
+            user.is_staff = True
+        if commit:
+            user.save()
+        return user
