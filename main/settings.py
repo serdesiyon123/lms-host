@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os.path
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -90,7 +91,8 @@ DATABASES = {
         'PORT': '5432'
     }
 }
-
+internal = 'postgres://capstone:tzzczgryy2FZzhja8LFL4RZayzuM18Nw@dpg-cnreh5cf7o1s73cnd85g-a/lms_capstone_wgyy'
+DATABASES['default'] = dj_database_url.parse(internal)
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
