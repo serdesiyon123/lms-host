@@ -4,7 +4,7 @@ from django.contrib.auth.models import User, Group
 from django.contrib import messages
 from django.db.models import Q
 from django.utils import timezone
-from .forms import BooksRegister
+from .forms import BooksRegister,ReviewRegister
 from .models import Books, Borrow,Rating
 from datetime import timedelta
 
@@ -40,13 +40,12 @@ def rate_book(request, book_id):
     
     return redirect('/home')
 
+
 def book_detail(request, id):
     book = get_object_or_404(Books, pk=id)
     ratings = Rating.objects.filter(book=book)
 
     return render(request, '____.html', {'book': book, 'ratings': ratings})
-
-#----------------------------------------------------------------
 
 
 @permission_required('manage_books.add_books', raise_exception=True)
@@ -85,12 +84,13 @@ def add_books(request):
 
 def admin(request):
     if request.method == 'GET':
-        users = User.objects.filter(Q(groups__name='admin') | Q(groups__name='student'))
+        users = User.objects.filter(groups__name='student')
         return render(request, 'ui/admin.html', {'users': users})
     elif request.method == 'POST':
         user_id = request.POST.get('user-id')
         username = request.POST.get('username')
-
+        print(username,user_id)
+        print(user_id)
         if user_id:
             user = User.objects.filter(id=user_id).first()
             if request.user.is_staff:
@@ -126,13 +126,13 @@ def search_result(request):
             return render(request, 'ui/home.html')
 
 
-def search_users(request):
-    if request.method == 'GET':
-        search_user = request.GET.get('search-user')
-        Users = User.objects.all()
-        users = Users.objects.filter(username__icontains=search_user)
-        return render(request, 'ui/search_users.html', {'users': users})
-    return render(request, 'ui/search_users.html', )
+# def search_users(request):
+#     if request.method == 'GET':
+#         search_user = request.GET.get('search-user')
+#         Users = User.objects.all()
+#         users = Users.objects.filter(username__icontains=search_user)
+#         return render(request, 'ui/search_users.html', {'users': users})
+#     return render(request, 'ui/search_users.html', )
 
 
 @login_required(login_url='/status')
