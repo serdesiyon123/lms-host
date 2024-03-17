@@ -83,10 +83,10 @@ WSGI_APPLICATION = 'main.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'lms_project',
-        'USER': 'postgres',
-        'PASSWORD': 'S3rv3post',
-        'HOST': 'localhost',
+        'NAME': 'lms_capstone_wgyy',
+        'USER': 'capstone',
+        'PASSWORD': 'tzzczgryy2FZzhja8LFL4RZayzuM18Nw',
+        'HOST': 'dpg-cnreh5cf7o1s73cnd85g-a',
         'PORT': '5432'
     }
 }
