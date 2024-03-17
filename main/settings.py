@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-4mtz%lfi55fsf0=jdzn0z_9_5t53&3iljmc+ksmgvly&_)p!ck'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['lms-host.onrender.com']
 
@@ -91,7 +91,10 @@ DATABASES = {
         'PORT': '5432'
     }
 }
+
 internal = 'postgres://capstone:tzzczgryy2FZzhja8LFL4RZayzuM18Nw@dpg-cnreh5cf7o1s73cnd85g-a/lms_capstone_wgyy'
+external = 'postgres://capstone:tzzczgryy2FZzhja8LFL4RZayzuM18Nw@dpg-cnreh5cf7o1s73cnd85g-a.oregon-postgres.render.com/lms_capstone_wgyy'
+
 DATABASES['default'] = dj_database_url.parse(internal)
 
 # Password validation
