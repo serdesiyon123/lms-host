@@ -1,18 +1,12 @@
-<<<<<<< HEAD
-from django.shortcuts import render, redirect,get_object_or_404
-=======
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
->>>>>>> parent of dd004e2 (last commit hopefully)
 from django.contrib.auth.decorators import login_required, permission_required
+from .forms import BooksRegister, ReviewRegister
+from .models import Books, Borrow, Rating
 from django.contrib.auth.models import User, Group
-from django.contrib import messages
 from django.db.models import Q
 from django.utils import timezone
-from .forms import BooksRegister,ReviewRegister
-from .models import Books, Borrow,Rating
 from datetime import timedelta
-
+from django.contrib import messages
 
 
 def homepage(request):
@@ -32,25 +26,6 @@ def homepage(request):
 
     borrowed_books = Borrow.objects.all()
     return render(request, 'ui/home.html', {'books': books, 'borrowed_books': borrowed_books})
-
-
-# for book rating and review
-def rate_book(request, book_id):
-    if request.method == 'POST':
-        rating_value = int(request.POST.get('rating'))
-        review_text = request.POST.get('review', '')
-        book = get_object_or_404(Books, pk=book_id)
-        Rating.objects.create(book=book, user=request.user, rating=rating_value, review=review_text)
-        return redirect('book_detail', id=book_id)
-    
-    return redirect('/home')
-
-
-def book_detail(request, id):
-    book = get_object_or_404(Books, pk=id)
-    ratings = Rating.objects.filter(book=book)
-
-    return render(request, '____.html', {'book': book, 'ratings': ratings})
 
 
 @permission_required('manage_books.add_books', raise_exception=True)
@@ -94,8 +69,7 @@ def admin(request):
     elif request.method == 'POST':
         user_id = request.POST.get('user-id')
         username = request.POST.get('username')
-        print(username,user_id)
-        print(user_id)
+
         if user_id:
             user = User.objects.filter(id=user_id).first()
             if request.user.is_staff:
@@ -131,13 +105,16 @@ def search_result(request):
             return render(request, 'ui/home.html')
 
 
-# def search_users(request):
-#     if request.method == 'GET':
-#         search_user = request.GET.get('search-user')
-#         Users = User.objects.all()
-#         users = Users.objects.filter(username__icontains=search_user)
-#         return render(request, 'ui/search_users.html', {'users': users})
-#     return render(request, 'ui/search_users.html', )
+
+
+def search_users(request):
+    if request.method == 'GET':
+        search_user = request.GET.get('search-user')
+        Users = User.objects.all()
+        users = Users.objects.filter(username__icontains=search_user)
+        return render(request, 'ui/search_users.html', {'users': users})
+    return render(request, 'ui/search_users.html', )
+
 
 @login_required(login_url='/status')
 def status(request):
@@ -170,7 +147,6 @@ def return_book(request, book_id):
        book = Borrow.objects.get(pk=book_id)
        book.delete()
        return redirect('status')
-
 
 def description(request,id):
     if request.method == 'GET':
