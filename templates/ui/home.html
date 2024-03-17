@@ -35,7 +35,6 @@
                         <a href="/home?value=Childrens Literature"><li>Childrens Literature</li></a>
                     </ul>
                 </li>
-                <li><a href="#">Authors</a></li>
                 <li><a href="/status">Status</a></li>
                 {% if user.is_staff or perms.manage_books.add_books %}
                     <li><a href="/add">Add</a></li>{% endif %}

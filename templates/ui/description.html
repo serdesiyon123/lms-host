@@ -246,12 +246,10 @@ p {
         </header>
 
     {% for user_review in user_reviews %}
-        {% if book.id == user_review.id %}
+        {% if book == user_review.book %}
         <div class="user_review">
             <h5><i>A Review by {{ user_review.user }}</i> </h5>
-            <h4>
 
-            </h4>
             <p >{{ user_review.review }}</p>
             <h6> Reviewed in {{ user_review.review_date }}</h6>
             <p class="verified"><strong>Verified Review</strong></p>

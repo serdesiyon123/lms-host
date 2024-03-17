@@ -165,6 +165,5 @@ def description(request,id):
             review.user = request.user
             review.book = book
             review.review_date = timezone.now()
-            review.id = id
             review.save()
         return redirect('description-each', id=id)
