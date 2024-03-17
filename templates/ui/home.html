@@ -77,16 +77,16 @@
                             <h3>{{ book.name }}</h3>
                             <p>{{ book.author }}</p>
                             <p>{{ book.genre }}</p>
-                            {% if book.rating >= 4 %}
+                            {% if book.rating > 4 %}
                                     {% for i in "12345" %}
                                         <span class="fa fa-star checked"></span>
                                     {% endfor %}
-                            {% elif book.rating >= 3 %}
+                            {% elif book.rating > 3 %}
                                     {% for i in "1234" %}
                                         <span class="fa fa-star checked"></span>
                                     {% endfor %}
                                     <span class="fa fa-star"></span>
-                            {% elif book.rating >= 2 %} 
+                            {% elif book.rating > 2 %} 
                                     {% for i in "123" %}
                                         <span class="fa fa-star checked"></span>
                                     {% endfor %}
