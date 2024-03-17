@@ -241,3 +241,7 @@ footer p {
     border-radius: 15px;
 
 }
+
+.checked {
+    color: orange;
+}
