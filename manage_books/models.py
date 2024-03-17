@@ -57,6 +57,6 @@ class Rating(models.Model):
         default=0,
         validators=[
             MaxValueValidator(5),
-            MinValueValidator(1)
+            MinValueValidator(0)
         ]
     )
