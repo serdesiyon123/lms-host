@@ -3,6 +3,7 @@
 <head>
     {% load static %}
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -75,7 +76,41 @@
                             <img src="{{ book.poster.url }}" alt="Book Cover 1">
                             <h3>{{ book.name }}</h3>
                             <p>{{ book.author }}</p>
-                            <p>{{ book.genre }}</p></a> </button></form>
+                            <p>{{ book.genre }}</p>
+                            {% if book.rating == 5 %}
+                                    {% for i in "12345" %}
+                                        <span class="fa fa-star checked"></span>
+                                    {% endfor %}
+                            {% elif book.rating >= 4 %}
+                                    {% for i in "1234" %}
+                                        <span class="fa fa-star checked"></span>
+                                    {% endfor %}
+                                    <span class="fa fa-star"></span>
+                            {% elif book.rating >= 3 %}
+                                    {% for i in "123" %}
+                                        <span class="fa fa-star checked"></span>
+                                    {% endfor %}
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                            {% elif book.rating >= 2 %} 
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    {% for i in "123" %}
+                                        <span class="fa fa-star"></span>
+                                    {% endfor %}
+
+                            {% elif book.rating >= 1 %} 
+                                    <span class="fa fa-star checked"></span>
+                                    {% for i in "1234" %}
+                                        <span class="fa fa-star"></span>
+                                    {% endfor %}
+                            {% else %}
+                                    {% for i in "12345" %}
+                                        <span class="fa fa-star"></span>
+                                    {% endfor %}
+                            {% endif %}
+                        
+                        </a> </button></form>
                             <form method="post" style="display: flex; justify-content: space-around "> {% csrf_token %}
                                     <button style="margin: 0 5px 10px 5px; color: #45A049" type="submit" name="id"
                                             value="{{ book.id }}"><a style="text-decoration: none; color: #45A049"

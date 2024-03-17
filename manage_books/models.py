@@ -21,7 +21,14 @@ class Books(models.Model):
     author = models.CharField(max_length=255)
     genre = models.CharField(max_length=255, choices=GENRE_CHOICES)
     poster = models.ImageField(upload_to='templates/images')
-    description = models.TextField()
+    description = models.TextField(null=True)
+
+    @property
+    def rating(self):
+        return self.average()
+
+    def average(self):
+        return Rating.objects.filter(book=self).aggregate(avg=models.Avg('rating'))['avg']
 
     def __str__(self):
         return self.name
@@ -34,9 +41,22 @@ class Borrow(models.Model):
     return_date = models.DateField(null=True, blank=True)
 
 
+# class Rating(models.Model):
+#     rating = models.PositiveIntegerField(default=0, validators=[MinValueValidator(1),MaxValueValidator(5)])
+#     review = models.TextField()
+#     book = models.ForeignKey(Books, on_delete=models.CASCADE)
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
+#     review_date = models.DateField(auto_now_add=True)
+
 class Rating(models.Model):
-    rating = models.PositiveIntegerField(validators=[MinValueValidator(1),MaxValueValidator(5)])
-    review = models.TextField()
-    book = models.ForeignKey(Books, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    book = models.ForeignKey(Books, on_delete=models.CASCADE)
+    review = models.TextField()
     review_date = models.DateField(auto_now_add=True)
+    rating = models.IntegerField(
+        default=0,
+        validators=[
+            MaxValueValidator(5),
+            MinValueValidator(0)
+        ]
+    )
