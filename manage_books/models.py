@@ -8,13 +8,13 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 class Books(models.Model):
     # this should have attributes like Name, Author, Genre, Image etc
     GENRE_CHOICES = [
-        ('fic','Fiction'),
-        ('non-fic','Non-Fiction'),
-        ('my','Mystery'),
-        ('rom','Romance'),
-        ('sci-fi','Science Fiction'),
-        ('hi-fi','Historical Fiction'),
-        ('ch-lit','Childers Literature'),
+        ('Fiction','Fiction'),
+        ('Non-Fiction','Non-Fiction'),
+        ('Mystery','Mystery'),
+        ('Romance','Romance'),
+        ('Science Fiction','Science Fiction'),
+        ('Historical Fiction','Historical Fiction'),
+        ('Childers Literature','Childers Literature'),
     ]
 
     name = models.CharField(max_length=255)
