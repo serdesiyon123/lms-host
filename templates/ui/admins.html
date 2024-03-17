@@ -1,10 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'ui/home.html' %}
+
+
+{% block content %}
+
+
+        <div class="form-group form-container-right" >
+
+            <form    method="post" >
+                {% csrf_token %}
+                 <h1>User Management</h1>
+                <div class="search-bar-add">
+
+       </div>
+
+
+    <ul class="user-list">
+   <li> <span class="user-name"> Name </span>
+            <span class="user-name" style="margin-right: 90px">Username</span>
+
+   </li>
+            {% for user in users %}
+        <li>
+            <span class="user-name">{{ user.first_name }}</span>
+            <span class="user-name">{{ user.username}}</span>
+            <button  type="submit" class="promote-btn" name="username" value="{{ user.username }}" >Downgrade</button>
+            <span style="margin: 0 5px;"></span>  <button class="ban-btn" type="submit" name="user-id" value="{{ user.id }}">Ban</button>
+        </li>
+      {% endfor %}
+
+    </ul>
+            </form>
+        </div>
+
+
+
+{% endblock %}

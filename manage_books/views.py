@@ -83,7 +83,7 @@ def admin(request):
                     group.user_set.remove(user)
                 except:
                     pass
-            return redirect('/admin-page')
+            return redirect('/promote')
         elif username:
             user = User.objects.filter(username=username).first()
             if request.user.is_staff:
@@ -91,7 +91,41 @@ def admin(request):
                 student_group = Group.objects.get(name='student')
                 admin_group.user_set.add(user)
                 student_group.user_set.remove(user)
-            return redirect('/admin-page')
+            return redirect('/promote')
+
+def admins_edit(request):
+    if request.method == 'GET':
+        users = User.objects.filter(groups__name='admin')
+        return render(request, 'ui/admins.html', {'users': users})
+    elif request.method == 'POST':
+        user_id = request.POST.get('user-id')
+        username = request.POST.get('username')
+
+        if user_id:
+            user = User.objects.filter(id=user_id).first()
+            if request.user.is_staff:
+                try:
+                    group = Group.objects.get(name='student')
+                    group.user_set.remove(user)
+                except:
+                    pass
+                try:
+                    group = Group.objects.get(name='admin')
+                    group.user_set.remove(user)
+                except:
+                    pass
+            return redirect('/admins_edit')
+        elif username:
+            user = User.objects.filter(username=username).first()
+            if request.user.is_staff:
+                admin_group = Group.objects.get(name='admin')
+                student_group = Group.objects.get(name='student')
+                student_group.user_set.add(user)
+                admin_group.user_set.remove(user)
+            return redirect('/admins_edit')
+
+
+
 
 
 def search_result(request):
@@ -101,7 +135,7 @@ def search_result(request):
             books = Books.objects.filter(
                 Q(name__icontains=search) | Q(author__icontains=search) | Q(genre__icontains=search))
             return render(request, 'ui/search.html', {'books': books})
-        else:
+        if search is None:
             return render(request, 'ui/home.html')
 
 
@@ -110,10 +144,8 @@ def search_result(request):
 def search_users(request):
     if request.method == 'GET':
         search_user = request.GET.get('search-user')
-        Users = User.objects.all()
-        users = Users.objects.filter(username__icontains=search_user)
-        return render(request, 'ui/search_users.html', {'users': users})
-    return render(request, 'ui/search_users.html', )
+        users = User.objects.filter(username__icontains=search_user)
+        return render(request, 'ui/admin.html', {'users': users})
 
 
 @login_required(login_url='/status')
