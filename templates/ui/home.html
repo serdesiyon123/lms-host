@@ -92,14 +92,14 @@
                                     {% endfor %}
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
-                            {% elif book.rating >= 2 %} 
+                            {% elif book.rating >= 2 %}
                                     <span class="fa fa-star checked"></span>
                                     <span class="fa fa-star checked"></span>
                                     {% for i in "123" %}
                                         <span class="fa fa-star"></span>
                                     {% endfor %}
 
-                            {% elif book.rating >= 1 %} 
+                            {% elif book.rating >= 1 %}
                                     <span class="fa fa-star checked"></span>
                                     {% for i in "1234" %}
                                         <span class="fa fa-star"></span>
@@ -109,8 +109,8 @@
                                         <span class="fa fa-star"></span>
                                     {% endfor %}
                             {% endif %}
-                        
-                        </a> </button></form>
+
+                        </a> </button>{% if user.is_staff or perms.manage_books.add_books %}</form>
                             <form method="post" style="display: flex; justify-content: space-around "> {% csrf_token %}
                                     <button style="margin: 0 5px 10px 5px; color: #45A049" type="submit" name="id"
                                             value="{{ book.id }}"><a style="text-decoration: none; color: #45A049"
@@ -121,7 +121,7 @@
                                         <button style="color: orangered; margin: 0 5px 10px 5px" type="submit"
                                                 name="delete" value="{{ book.id }}">Delete
                                         </button>
-                                    </form>
+                                    </form>{% endif %}
                         </div>
 
                     {% endfor %}
